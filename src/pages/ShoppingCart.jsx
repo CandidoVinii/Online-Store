@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 export default class ShoppingCart extends React.Component {
   renderItemsShoppingCart = () => {
@@ -49,12 +50,14 @@ export default class ShoppingCart extends React.Component {
     return (
       <div>
         <p>{ `Valor Total da Compra R$ ${totalPayable}` }</p>
-        <button
-          type="button"
-          data-testid="shopping-cart-button"
-        >
-          Finalizar Compra
-        </button>
+        <Link to="/checkout">
+          <button
+            type="button"
+            data-testid="checkout-products"
+          >
+            Finalizar Compra
+          </button>
+        </Link>
       </div>
     );
   }
