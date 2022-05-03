@@ -7,6 +7,7 @@ import { getCategories } from './services/api';
 import Search from './pages/Search';
 import ShoppingCart from './pages/ShoppingCart';
 import ProductDetails from './pages/ProductDetails';
+import Checkout from './pages/Checkout';
 
 class App extends React.Component {
   constructor() {
@@ -214,6 +215,13 @@ class App extends React.Component {
               cartItems={ cartItems }
               addProductByDetails={ this.addProductByDetails }
               totalProducts={ this.onCalculateTotalProducts }
+            />) }
+          />
+          <Route
+            path="/checkout"
+            render={ () => (<Checkout
+              cartItems={ cartItems }
+              totalPayable={ totalPayable }
             />) }
           />
         </Switch>
