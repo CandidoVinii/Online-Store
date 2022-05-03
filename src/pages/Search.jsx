@@ -6,6 +6,9 @@ import PropTypes from 'prop-types';
 import ProductList from '../components/ProductList';
 import Header from '../components/Header';
 
+// Style-css-module
+import Style from '../style/Search.module.css';
+
 // funções
 import * as api from '../services/api';
 
@@ -67,10 +70,15 @@ export default class Search extends React.Component {
     const { value } = this.state;
     const { categories, totalProducts, cartItems } = this.props;
     return (
-      <main>
+      <main className={ Style.container }>
         <Link to="/cart" />
+        <Header
+          className={ Style.header }
+          cartItems={ cartItems }
+          totalProducts={ totalProducts }
+        />
         <div>
-          <form action="">
+          <form className={ Style.divForm }>
             <input
               data-testid="query-input"
               type="text"
@@ -86,10 +94,9 @@ export default class Search extends React.Component {
               pesquisar
             </button>
           </form>
-          <Header cartItems={ cartItems } totalProducts={ totalProducts } />
         </div>
         <div>
-          <section>
+          <section className={ Style.productList }>
             {categories.map((element) => (
               <label htmlFor={ element.id } data-testid="category" key={ element.id }>
                 {element.name}
