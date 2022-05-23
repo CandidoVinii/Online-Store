@@ -77,7 +77,7 @@ export default class ShoppingCart extends React.Component {
     return (
       <>
         <div className="border-2 h-14 flex justify-between items-center bg-[#E4572E] ">
-          <Link exact to="/"><Rewind size={ 24 } color="#151414" weight="bold" /></Link>
+          <Link exact to="Online-Store"><Rewind size={ 24 } color="#151414" weight="bold" /></Link>
           <h2>Carrinho</h2>
         </div>
         <div className="mt-14 grid grid-cols-3 p-12 pl-40 bg-zinc-300 rounded">

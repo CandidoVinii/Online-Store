@@ -190,7 +190,7 @@ class App extends React.Component {
         <Switch>
           <Route
             exact
-            path="/"
+            path="/Online-Store"
             render={ () => (<Search
               categories={ categories }
               cartItems={ cartItems }
