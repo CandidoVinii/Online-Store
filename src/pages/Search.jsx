@@ -3,11 +3,9 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 // Componentes
+import { MagnifyingGlass } from 'phosphor-react';
 import ProductList from '../components/ProductList';
 import Header from '../components/Header';
-
-// Style-css-module
-import Style from '../style/Search.module.css';
 
 // funções
 import * as api from '../services/api';
@@ -70,48 +68,61 @@ export default class Search extends React.Component {
     const { value } = this.state;
     const { categories, totalProducts, cartItems } = this.props;
     return (
-      <main className={ Style.container }>
+      <main>
         <Link to="/cart" />
         <Header
-          className={ Style.header }
           cartItems={ cartItems }
           totalProducts={ totalProducts }
         />
-        <div>
-          <form className={ Style.divForm }>
-            <input
-              data-testid="query-input"
-              type="text"
-              name="value"
-              value={ value }
-              onChange={ this.onChangeHandle }
+        <div className="mt-4 rounded overflow-hidden flex justify-center">
+          <input
+            data-testid="query-input"
+            className="border border-gray-300 shadow p-1 w-80 rounded mb-"
+            type="text"
+            placeholder="Pesquisar..."
+            name="value"
+            value={ value }
+            onChange={ this.onChangeHandle }
+          />
+          <button
+            className="flex items-center justify-center px-4"
+            data-testid="query-button"
+            type="button"
+            onClick={ this.onClickButton }
+          >
+            <MagnifyingGlass
+              className=""
+              size={ 24 }
+              color="#fafafa"
+              weight="bold"
             />
-            <button
-              data-testid="query-button"
-              type="button"
-              onClick={ this.onClickButton }
-            >
-              pesquisar
-            </button>
-          </form>
+          </button>
+        </div>
+        <div className="flex justify-center">
+          { this.onDrawComponents() }
         </div>
         <div>
-          <section className={ Style.productList }>
+          <section className="flex-col bg-[#FFC914] mt-8 w-fit">
             {categories.map((element) => (
-              <label htmlFor={ element.id } data-testid="category" key={ element.id }>
-                {element.name}
-                <input
-                  type="radio"
-                  id={ element.id }
-                  name="category"
-                  value={ element.id }
-                  onChange={ this.onChangeHandle }
-                />
-              </label>
+              <>
+                <label htmlFor={ element.id } data-testid="category" key={ element.id }>
+                  <button
+                    type="button"
+                    // eslint-disable-next-line max-len
+                    className="border-[0.1px] text-zinc-900 text-left h-8 w-full hover:bg-[#fddc63] transition-all border-black"
+                    id={ element.id }
+                    name="category"
+                    value={ element.id }
+                    onClick={ this.onChangeHandle }
+                  >
+                    {element.name}
+                  </button>
+                </label>
+                <br />
+              </>
             ))}
           </section>
         </div>
-        { this.onDrawComponents() }
       </main>
     );
   }

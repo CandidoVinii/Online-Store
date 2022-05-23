@@ -1,6 +1,8 @@
+/* eslint-disable max-len */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { MinusCircle, PlusCircle, Rewind } from 'phosphor-react';
 
 export default class ShoppingCart extends React.Component {
   renderItemsShoppingCart = () => {
@@ -14,32 +16,39 @@ export default class ShoppingCart extends React.Component {
       const { id, product, quantity } = cartItem;
       const { title, thumbnail } = product;
       return (
-        <div key={ index }>
+        <div
+          className="bg-white border-zinc-600 rounded hover:bg-zinc-100 transition-all text-zinc-900 border text-center justify-center flex-col w-60 h-72"
+          key={ index }
+        >
+          <img className="pt-6 w-48 pl-12" src={ thumbnail } alt={ `imagem do produto ${title}` } />
           <button type="button" value={ id } onClick={ onRemove }>X</button>
-          <img src={ thumbnail } alt={ `imagem do produto ${title}` } />
-          <h3 data-testid="shopping-cart-product-name">{title}</h3>
-          <button
-            type="button"
-            data-testid="product-decrease-quantity"
-            name="decrease-quantity"
-            onClick={ modifyQuantity }
-            value={ id }
-          >
-            -
-          </button>
-          <p data-testid="shopping-cart-product-quantity">
-            {quantity}
-          </p>
-          <button
-            type="button"
-            data-testid="product-increase-quantity"
-            name="increase-quantity"
-            onClick={ modifyQuantity }
-            value={ id }
-            disabled={ !cartItem.stockAvailable }
-          >
-            +
-          </button>
+          <h3 className="truncate" data-testid="shopping-cart-product-name">{title}</h3>
+          <div className="flex justify-center mt-5 ">
+            <button
+              type="button"
+              className="mr-2"
+              data-testid="product-decrease-quantity"
+              name="decrease-quantity"
+              onClick={ modifyQuantity }
+              value={ id }
+            >
+              <MinusCircle size={ 24 } color="#151414" weight="bold" />
+            </button>
+            <p data-testid="shopping-cart-product-quantity">
+              {quantity}
+            </p>
+            <button
+              type="button"
+              data-testid="product-increase-quantity"
+              className="ml-2"
+              name="increase-quantity"
+              onClick={ modifyQuantity }
+              value={ id }
+              disabled={ !cartItem.stockAvailable }
+            >
+              <PlusCircle size={ 24 } color="#151414" weight="bold" />
+            </button>
+          </div>
         </div>
       );
     });
@@ -48,11 +57,12 @@ export default class ShoppingCart extends React.Component {
   onRenderTotalPayable = () => {
     const { totalPayable } = this.props;
     return (
-      <div>
-        <p>{ `Valor Total da Compra R$ ${totalPayable}` }</p>
+      <div className="flex justify-between items-center pt-2">
+        <p>{ `Valor Total da Compra:  R$ ${Number(totalPayable).toFixed(2)}` }</p>
         <Link to="/checkout">
           <button
             type="button"
+            className="bg-[#17BEBB] rounded text-zinc-900 p-1 mr-2 hover:bg-[#37E6E3] transition-all"
             data-testid="checkout-products"
           >
             Finalizar Compra
@@ -66,9 +76,16 @@ export default class ShoppingCart extends React.Component {
     const { cartItems } = this.props;
     return (
       <>
-        <h2>Meu Carrinho de Compras</h2>
-        {this.renderItemsShoppingCart()}
-        {cartItems.length > 0 && this.onRenderTotalPayable()}
+        <div className="border-2 h-14 flex justify-between items-center bg-[#E4572E] ">
+          <Link exact to="/"><Rewind size={ 24 } color="#151414" weight="bold" /></Link>
+          <h2>Carrinho</h2>
+        </div>
+        <div className="mt-14 grid grid-cols-3 p-12 pl-40 bg-zinc-300 rounded">
+          {this.renderItemsShoppingCart()}
+        </div>
+        <div className="mt-6 border-2 h-12">
+          {cartItems.length > 0 && this.onRenderTotalPayable()}
+        </div>
       </>
     );
   }
