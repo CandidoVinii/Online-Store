@@ -186,11 +186,11 @@ class App extends React.Component {
   render() {
     const { categories, cartItems, totalPayable } = this.state;
     return (
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Switch>
           <Route
             exact
-            path="/Online-Store"
+            path="/"
             render={ () => (<Search
               categories={ categories }
               cartItems={ cartItems }
